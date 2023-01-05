@@ -1,4 +1,9 @@
-use std::{env, fs, process};
+use std::{
+    env, 
+    fs, 
+    process, 
+    error::Error
+};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -11,9 +16,7 @@ fn main() {
     println!("Searching for '{}'", config.query);
     println!("in file '{}'", config.file_path);
 
-    let contents = fs::read_to_string(config.file_path).expect("Error reading file!");
-
-    println!("with text:\n{contents}");
+    run(config);
 }
 
 struct Config {
@@ -32,4 +35,11 @@ impl Config {
 
         Ok(Config { query, file_path })
     }
+}
+
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.file_path)?;
+    println!("with text:\n{contents}");
+
+    Ok(())
 }
