@@ -1,4 +1,4 @@
-use std::{error::Error, fs, vec};
+use std::{error::Error, fs};
 
 pub struct Config {
     pub query: String,
